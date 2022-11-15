@@ -1,0 +1,216 @@
+
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
+        <title>Windows 预览体验过期无法更新的解决方案 | 初時雨の小窝</title>
+        <meta name="author" content="初時雨">
+        <meta name="description" content="">
+        <meta name="keywords" content="">
+        <link rel="icon" href="https://avatars.githubusercontent.com/u/65275829?s=400&u=9a88639ad86c7f44c3cd3f119c259bf5dbe589c0&v=4">
+        <script src="https://cdn.staticfile.org/instant.page/5.1.0/instantpage.min.js" type="module"></script>
+        <script src="https://cdn.staticfile.org/font-awesome/6.1.1/js/all.min.js"></script>
+        
+        <link rel="stylesheet" href="/css/fonts.min.css">
+        <link rel="stylesheet" href="/css/particlex.css">
+        
+        <script src="https://cdn.staticfile.org/vue/3.2.33/vue.global.prod.min.js"></script>
+    <meta name="generator" content="Hexo 5.4.2"></head>
+    <body>
+        <div id="loading" style="height:100vh;width:100vw;position:fixed;display:flex;z-index:200;justify-content:space-between;background:#fff;transition:opacity 0.3s ease-out"><div style="position:fixed;height:100vh;width:100vw;display:flex;justify-content:center;align-items:center"><div id="loadcontent" style="width:50vmin;height:50vmin;padding:50px;border-radius:50%;display:flex;justify-content:center;align-items:center;border:solid 10px #a3ddfb;text-align:center"><div><h2>LOADING...</h2><p style="word-break:keep-all">加载过慢请开启缓存(浏览器默认开启)</p><div><img alt="loading" src="/loading.gif"></div></div></div></div></div>
+        <div id="layout">
+            <i data-fa-symbol="calendar-solid" class="fa-solid fa-calendar fa-fw"></i>
+            <i data-fa-symbol="bookmark-solid" class="fa-solid fa-bookmark fa-fw"></i>
+            <i data-fa-symbol="tags-solid" class="fa-solid fa-tags fa-fw"></i>
+            <transition name="into">
+                <div v-show="show_page" style="display: -not-none">
+                    <div id="menu_show">
+                         
+<nav id="menu">
+    <div class="desktop-menu">
+        <a href="/">
+            <span class="title">初時雨の小窝</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;主页</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;关于</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;归档</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;分类</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;标签</span>
+        </a>
+        
+        <a target="_blank" rel="noopener" href="https://pandao.github.io/editor.md/">
+            <i class="fa- fa- fa-fw"></i>
+            <span>&ensp;Markdown 在线编辑</span>
+        </a>
+        
+    </div>
+    <div :class="'phone-menu ' + menu_show" id="phone-menu">
+        <div class="curtain" @click="menu_show = !menu_show" v-show="menu_show"></div>
+        <div :class="'title'" @click="menu_show = !menu_show">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;初時雨の小窝</span>
+        </div>
+        <transition name="slide">
+        <div class="items" v-show="menu_show">
+            
+            <a href="/">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-house fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">主页</div>
+                </div>
+            </a>
+            
+            <a href="/about">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-id-card fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">关于</div>
+                </div>
+            </a>
+            
+            <a href="/archives">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-box-archive fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">归档</div>
+                </div>
+            </a>
+            
+            <a href="/categories">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-bookmark fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">分类</div>
+                </div>
+            </a>
+            
+            <a href="/tags">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-tags fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">标签</div>
+                </div>
+            </a>
+            
+            <a target="_blank" rel="noopener" href="https://pandao.github.io/editor.md/">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa- fa- fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">Markdown 在线编辑</div>
+                </div>
+            </a>
+            
+        </div>
+        </transition>
+    </div>
+</nav>
+                    </div>
+                    <div id="main">
+                        
+<div class="article">
+    <div>
+        <h1>Windows 预览体验过期无法更新的解决方案 </h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <svg class="fa-icon"><use xlink:href="#calendar-solid"></use></svg>
+            </span>
+            2022/9/18
+        </span>
+        
+        <span class="category">
+            <a href="/categories/奇怪问题的解决方案/">
+                <span class="icon">
+                    <svg class="fa-icon"><use xlink:href="#bookmark-solid"></use></svg>
+                </span>
+                奇怪问题的解决方案
+            </a>
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <svg class="fa-icon"><use xlink:href="#tags-solid"></use></svg>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/Windows/" style="color: #00a596">
+                    Windows
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    <div class="content" v-pre>
+        <h2 id="起因"><a href="#起因" class="headerlink" title="起因"></a>起因</h2><p>由于傻逼学校太久不放假，一直没有时间碰电脑(差不多50天吧)。开机后，直接触发时间炸弹(忘了截图了，<del>随便放一张凑合下吧</del>)。<br><img src="https://i2.100024.xyz/2022/09/18/u3nz9u.webp" alt="评估副本已过期"><br>作为一名快圈勇士，我怎么会被区区时间炸弹吓到呢，于是我果断选择更新，这才有了更多奇怪的发现。</p>
+<h2 id="影响"><a href="#影响" class="headerlink" title="影响"></a>影响</h2><h4 id="开幕雷击-积累更新无法安装"><a href="#开幕雷击-积累更新无法安装" class="headerlink" title="开幕雷击: 积累更新无法安装"></a>开幕雷击: 积累更新无法安装</h4><p><img src="https://i2.100024.xyz/2022/09/18/u4f720.webp"><br>这种情况肯定是求助万能的<del>百度</del>微软支持啦，但是很不幸，没有一种方法可以解决我的问题。</p>
+<h4 id="梅开二度-功能更新异常"><a href="#梅开二度-功能更新异常" class="headerlink" title="梅开二度: 功能更新异常"></a>梅开二度: 功能更新异常</h4><p>就一般理性而言，只要替换<a target="_blank" rel="noopener" href="https://cn.bing.com/search?q=AppraiserRes.dll" title="AppraiserRes.dll"><code>AppraiserRes.dll</code></a>，功能更新就不会出问题。然而，经过漫长的等待后…<br><img src="https://i2.100024.xyz/2022/09/18/u51jyt.webp"><br>?!<del>你TM故意找茬是吧</del><br>我用了超过5年 Windows 10 及以上版本，这种情况还是第一次见到。什么时候功能更新还没重启就能完成了？很显然，网上甚至没有人出现过这种问题，更不用谈解决方案了。</p>
+<h4 id="三羊开泰-奇怪的权限索取"><a href="#三羊开泰-奇怪的权限索取" class="headerlink" title="三羊开泰: 奇怪的权限索取"></a>三羊开泰: 奇怪的权限索取</h4><p>众所周知，打开任务管理器是不需要授予管理员权限的，但是…<br><img src="https://i2.100024.xyz/2022/09/18/u5gmg3.webp"><br>???<br>还有设置<br><img src="https://i2.100024.xyz/2022/09/18/u5mpma.webp"></p>
+<h2 id="真相揭晓"><a href="#真相揭晓" class="headerlink" title="真相揭晓"></a>真相揭晓</h2><p>问题越积越多，但是真相也越来越清晰了。结合之前看过的某个视频(<a target="_blank" rel="noopener" href="https://bilibili.com/BV1xg411k7Qw" title="BV1xg411k7Qw">BV1xg411k7Qw</a>)，不难发现，这就是证书过期导致的！<br>顺着这条线索，我查看了 Windows 的证书<br><img src="https://i2.100024.xyz/2022/09/18/u62vvs.webp"><br>不出所料，证书在前一天过期了(大冤种就是我了)。既然知道原因了，那么接下来解决就很简单了吧(确  信)。</p>
+<h2 id="问题解决"><a href="#问题解决" class="headerlink" title="问题解决"></a>问题解决</h2><p>很好，经过亿个小时的奋斗，我放弃了。但就在这时，我突然脑洞大开。既然签名是16日过期的，那我把日期改到15日会怎么样呢？没想到，这个方法奏效了。<br><img src="https://i2.100024.xyz/2022/09/18/u68lce.webp"><br>成！功！了！</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>能够遇到这种奇葩情况的大冤种估计全网找不出第二个来，这篇文章就当是一个预警吧。看来既然选择了快圈，还是得按时更新啊！不说了，更新去了。</p>
+
+    </div>
+    
+    
+</div>
+                         
+<footer id="footer">
+    <div class="footer-wrap">
+        <div>
+            © 2022 - 2022 初時雨の小窝
+            <span class="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            @初時雨
+        </div>
+        <div></div>
+        <div>Based on the <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo Engine</a> & <a
+                target="_blank" rel="noopener" href="https://github.com/argvchs/hexo-theme-particlex">ParticleX Theme</a></div>
+        
+    </div>
+</footer>
+                    </div>
+                </div>
+            </transition>
+            <div id="img_show">
+                <img id="img_content" alt="img_show">
+            </div>
+        </div>
+        <script src="https://cdn.staticfile.org/highlight.js/11.5.1/highlight.min.js"></script>
+        <script src="/js/particlex.js"></script>
+        <script src="/js/showimg.js"></script>
+        
+
+    </body>
+</html>
