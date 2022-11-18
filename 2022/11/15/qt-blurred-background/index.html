@@ -170,15 +170,15 @@
             
             <span class="tag">
                 
-                <a href="/tags/Qt/" style="color: #ff7d73">
-                    Qt
+                <a href="/tags/Windows/" style="color: #ffa2c4">
+                    Windows
                 </a>
             </span>
             
             <span class="tag">
                 
-                <a href="/tags/Windows/" style="color: #00a596">
-                    Windows
+                <a href="/tags/Qt/" style="color: #00a596">
+                    Qt
                 </a>
             </span>
             
@@ -194,9 +194,16 @@
 <h3 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h3><ul>
 <li><em>无法动态响应</em>被模糊区域的更新</li>
 </ul>
-<h3 id="代码-amp-效果"><a href="#代码-amp-效果" class="headerlink" title="代码&amp;效果"></a>代码&amp;效果</h3><pre><code class="cpp">
+<h3 id="代码-amp-效果"><a href="#代码-amp-效果" class="headerlink" title="代码&amp;效果"></a>代码&amp;效果</h3><pre><code class="cpp">//...
+
+//更新背景
+void MainWindow::onTimerCaptureTimeout()
+&#123;
+    QPixmap pix = QApplication::primaryScreen()-&gt;grabWindow(0, x(), y(), width(), height());
+    ui-&gt;lblBlur-&gt;setPixmap(pix);
+&#125;
 </code></pre>
-<p>以下是运行效果:</p>
+<p>以下是运行效果:<br><img src="https://i2.100024.xyz/2022/11/18/nlc6tf.webp" alt="图 - 运行效果"></p>
 <h2 id="实时更新的背景"><a href="#实时更新的背景" class="headerlink" title="实时更新的背景"></a>实时更新的背景</h2><p>由于各平台差异较大，Qt 未提供统一解决方案，需要自行使用<strong>平台特异性方法</strong>解决。主要思路与上面的类似，但难点在于如何获取被一个窗口遮挡的内容的截图。多次尝试和搜索未果后，我在 <a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-cn/windows/win32/api/winuser/nf-winuser-setwindowdisplayaffinity">Microsoft Learn</a> 上看到了这个函数<code>SetWindowDisplayAffinity</code>，它的参数中有这样一个选项:</p>
 <blockquote>
 <p>WDA_EXCLUDEFROMCAPTURE</p>
@@ -212,15 +219,41 @@
 <li>性能开销<strong>大</strong></li>
 <li>目前仅可在 Windows 上实现</li>
 </ul>
-<h3 id="代码-amp-效果-1"><a href="#代码-amp-效果-1" class="headerlink" title="代码&amp;效果"></a>代码&amp;效果</h3><pre><code class="cpp">
+<h3 id="代码-amp-效果-1"><a href="#代码-amp-效果-1" class="headerlink" title="代码&amp;效果"></a>代码&amp;效果</h3><pre><code class="cpp">#include &lt;Windows.h&gt;
+
+//...
+
+//构造函数
+MainWindow::MainWindow(QWidget *parent)
+    : QWidget(parent)
+    , ui(new Ui::MainWindow)
+&#123;
+    ui-&gt;setupUi(this);
+
+#ifdef Q_OS_WINDOWS
+    SetWindowDisplayAffinity((HWND)winId(), WDA_EXCLUDEFROMCAPTURE);
+#endif
+
+//...
+
+&#125;
+
+//...
+
+//更新背景
+void MainWindow::onTimerCaptureTimeout()
+&#123;
+    QPixmap pix = QApplication::primaryScreen()-&gt;grabWindow(0, x(), y(), width(), height());
+    ui-&gt;lblBlur-&gt;setPixmap(pix);
+&#125;
 </code></pre>
-<p>运行效果:</p>
+<p>运行效果:<br><img src="https://i2.100024.xyz/2022/11/18/nlc6tf.webp" alt="图 - 运行效果"></p>
 <h2 id="收获与感悟"><a href="#收获与感悟" class="headerlink" title="收获与感悟"></a>收获与感悟</h2><ul>
 <li>多翻文档，总能有意外收获</li>
 <li>实践是检验真理的唯一标准</li>
 <li>抵制 CSDN，从我做起</li>
 </ul>
-<h2 id="相关信息"><a href="#相关信息" class="headerlink" title="相关信息"></a>相关信息</h2><p><a href="about:blank" title="代码仓库(目前没有)">代码仓库(目前没有)</a></p>
+<h2 id="相关信息"><a href="#相关信息" class="headerlink" title="相关信息"></a>相关信息</h2><p><a href="about:blank">代码仓库(目前没有，<del><em>下次一定</em></del>)</a></p>
 
     </div>
     
