@@ -1,12 +1,7 @@
 hljs.highlightAll();
 hljs.configure({ ignoreUnescapedHTML: true });
-var codes = document.getElementsByTagName("pre");
-for (var i = 0; i < codes.length; i++) {
-    var lang = codes[i].firstChild.className.split(/\s+/).filter((x) => {
-        return x != "sourceCode";
-    })[0];
-    if (!lang) lang = "text";
-    codes[i].innerHTML += '<div class="language">' + lang + "</div>";
+function timeout(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
 }
 const App = Vue.createApp({
     data() {
@@ -19,18 +14,55 @@ const App = Vue.createApp({
     },
     created() {
         var that = this;
-        window.onload = function () {
+        window.addEventListener("load", () => {
             that.show_page = true;
             document.getElementById("loading").style.opacity = 0;
+            document.getElementById("loading").style.pointerEvents = "none";
             setTimeout(function () {
-                document.getElementById("loading").style.display = "none";
-            }, 300);
-        };
+                document.body.removeChild(document.getElementById("loading"));
+            }, 250);
+        });
     },
     mounted() {
         if (document.getElementById("home-head"))
             document.getElementById("menu").className += " menu-color";
         window.addEventListener("scroll", this.handleScroll, true);
+        var codes = document.getElementsByTagName("pre");
+        for (var code of codes) {
+            const lang =
+                code?.firstChild.className.split(/\s+/).filter(x => {
+                    return x != "sourceCode";
+                })[0] || "text";
+            let content = document.createElement("div");
+            content.classList.add("code-content");
+            content.innerHTML = code.innerHTML;
+            let language = document.createElement("div");
+            language.classList.add("language");
+            language.innerHTML = lang;
+            let copycode = document.createElement("div");
+            copycode.classList.add("copycode");
+            copycode.innerHTML =
+                '<i class="fa-solid fa-copy"></i><i class="fa-solid fa-clone"></i>';
+            copycode.addEventListener(
+                "click",
+                (function () {
+                    let copying = false;
+                    return async function () {
+                        if (copying) return;
+                        copying = true;
+                        copycode.classList.add("copied");
+                        await navigator.clipboard.writeText(
+                            this.parentElement.firstChild.innerText
+                        );
+                        await timeout(1000);
+                        copycode.classList.remove("copied");
+                        copying = false;
+                    };
+                })()
+            );
+            code.innerHTML = "";
+            code.append(content, language, copycode);
+        }
     },
     methods: {
         home_click() {
@@ -48,8 +80,7 @@ const App = Vue.createApp({
                 that.menu_show = false;
             } else menu.className = "show-menu";
             if (document.getElementById("home-posts-wrap"))
-                if (new_local <= window.innerHeight - 100)
-                    menu.className += " menu-color";
+                if (new_local <= window.innerHeight - 100) menu.className += " menu-color";
             this.bar_local = new_local;
         },
     },
